@@ -32,7 +32,7 @@ Usage: filterRecords.py -f FILTERFILE [-o OUTFILE] RECORDFILE
 # function:     filtered record extractor
 #
 # description:  extracts records from a record file as specified by an
-#                ID filter file
+#               ID filter file
 #
 # author:       Mohammed Safwat (MS)
 #
@@ -63,8 +63,8 @@ def process_command_line(argv):
 
     # initialize the parser object:
     parser = optparse.OptionParser(
-        "%prog -f FILTERFILE [-o OUTFILE] RECORDFILE", formatter=
-        optparse.TitledHelpFormatter(width=78), add_help_option=None)
+        "%prog -f FILTERFILE [-o OUTFILE] RECORDFILE",
+        formatter=optparse.TitledHelpFormatter(width=78), add_help_option=None)
 
     # define options here:
     parser.add_option(      # ID filter file
