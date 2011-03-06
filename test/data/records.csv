@@ -1,7 +1,7 @@
-asus,PC,motherboard
-sony,"PC, electronics",electronic devices
-philips,electronics,electrical sets
-gigabyte,PC,"motherboards, display cards"
-LG,"PC, home sets","refrigerators, DVD writers"
-IBM,everything,SW
-HP,electronics,laptops
+PC,asus,motherboard
+"PC, electronics",sony,electronic devices
+electronics,philips,electrical sets
+PC,gigabyte,"motherboards, display cards"
+"PC, home sets",LG,"refrigerators, DVD writers"
+everything,IBM,SW
+electronics,HP,laptops

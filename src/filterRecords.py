@@ -49,7 +49,9 @@ import sys
 import optparse
 # command-line option variables
 # variable to receive the ID filter file
-_FILTER_OPT_VAR = "filter_file_name"
+_FILTER_OPT_VAR = "filt_file_name"
+# variable to receive the ID column
+_ID_COL_OPT_VAR = "id_column"
 # variable to receive the output file name
 _OUT_OPT_VAR = "out_file_name"
 
@@ -70,6 +72,9 @@ def process_command_line(argv):
     parser.add_option(      # ID filter file
         '-f', '--filter', dest=_FILTER_OPT_VAR,
         help="Use this file to filter records by ID's.")
+    parser.add_option(      # ID column
+        '-i', '--id-column', dest=_ID_COL_OPT_VAR, type="int", default=0,
+        help="Read the record ID from this column.")
     parser.add_option(      # filtered record output file
         '-o', '--output', dest=_OUT_OPT_VAR,
         help='Save the filtered records into this file.')
@@ -119,12 +124,13 @@ def run(rec_file, settings):
     with open(rec_file, rec_rd_permit) as rec_list_file:
 
         rec_reader = csv.reader(rec_list_file)
+        id_col = getattr(settings, _ID_COL_OPT_VAR)
 
         for rec in rec_reader:
             if rec:
 
-                rec_map[rec[0]] = rec
-                debug("Found record %s: %s", rec[0], rec)
+                rec_map[rec[id_col]] = rec
+                debug("Found record %s: %s", rec[id_col], rec)
 
             else:
                 debug("Empty line encountered!")
