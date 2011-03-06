@@ -52,6 +52,8 @@ import optparse
 _FILTER_OPT_VAR = "filt_file_name"
 # variable to receive the ID column
 _ID_COL_OPT_VAR = "id_column"
+# variable to receive the output layout
+_LAYOUT_OPT_VAR = "layout"
 # variable to receive the output file name
 _OUT_OPT_VAR = "out_file_name"
 
@@ -75,6 +77,9 @@ def process_command_line(argv):
     parser.add_option(      # ID column
         '-i', '--id-column', dest=_ID_COL_OPT_VAR, type="int", default=0,
         help="Read the record ID from this column.")
+    parser.add_option(      # output layout
+        '-l', '--layout', dest=_LAYOUT_OPT_VAR,
+        help="Use this layout to format the output.")
     parser.add_option(      # filtered record output file
         '-o', '--output', dest=_OUT_OPT_VAR,
         help='Save the filtered records into this file.')
@@ -85,13 +90,13 @@ def process_command_line(argv):
     settings, args = parser.parse_args(argv)
 
     # check number of arguments:
-    mandatoryArgs = 1
-    extraArgs = len(args) - mandatoryArgs
+    mandatory_args = 1
+    extra_args = len(args) - mandatory_args
 
-    if extraArgs != 0:
+    if extra_args:
         parser.error('program takes exactly one record file; ' +
-                     (('"%s" ignored' % args[mandatoryArgs:]) if
-                     extraArgs > 0 else "none specified") + '.')
+                     (('"%s" ignored' % args[mandatory_args:]) if
+                     extra_args > 0 else "none specified") + '.')
 
     # further process settings
     # missing ID filter file
@@ -145,14 +150,31 @@ def run(rec_file, settings):
     rec_wr_permit = "wb"
     out_rec_file = csv.writer(res_file)
     with open(filter_file) as filter_list:
+
+        out_layout = getattr(settings, _LAYOUT_OPT_VAR)
+
+        if out_layout:
+
+            col_sep = ','
+            out_layout = \
+                map(lambda col_str: int(col_str), out_layout.split(col_sep))
+            debug("output layout: %s", out_layout)
+
         for id in filter_list:
 
             id = id.splitlines()[0]
 
             if id in rec_map:
 
-                out_rec_file.writerow(rec_map[id])
-                debug("Record %s extracted!", id)
+                # Format the output columns as specified if a custom
+                # format was provided. Since records may have different
+                # lengths, indices beyond the length of short records
+                # may be simply dropped.
+                rec_layout = filter(
+                    lambda col_num: col_num < len(rec_map[id]), out_layout)
+                debug("custom output layout for record %s: %s", id, rec_layout)
+                out_rec_file.writerow(map(lambda col_num: rec_map[id][col_num],
+                    rec_layout) if out_layout else rec_map[id])
 
             else:
                 logging.warn("Unknown record %s encountered, skipping...", id)
