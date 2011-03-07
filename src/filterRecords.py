@@ -4,7 +4,7 @@
 """
 extracts records identified by a filter file from a record file
 
-Usage: filterRecords.py -f FILTERFILE [-o OUTFILE] RECORDFILE
+Usage: filterRecords.py [OPTION...] RECORDFILE
 """
 
 ############################################################
@@ -66,9 +66,9 @@ def process_command_line(argv):
         argv = sys.argv[1:]
 
     # initialize the parser object:
-    parser = optparse.OptionParser(
-        "%prog -f FILTERFILE [-o OUTFILE] RECORDFILE",
-        formatter=optparse.TitledHelpFormatter(width=78), add_help_option=None)
+    parser = optparse.OptionParser("%prog [OPTION...] RECORDFILE",
+        formatter=optparse.TitledHelpFormatter(width=78),
+        add_help_option=None)
 
     # define options here:
     parser.add_option(      # ID filter file
@@ -79,7 +79,8 @@ def process_command_line(argv):
         help="Read the record ID from this column.")
     parser.add_option(      # output layout
         '-l', '--layout', dest=_LAYOUT_OPT_VAR,
-        help="Use this layout to format the output.")
+        help="Use this comma-separated list of column numbers to format the "
+        "output.")
     parser.add_option(      # filtered record output file
         '-o', '--output', dest=_OUT_OPT_VAR,
         help='Save the filtered records into this file.')
