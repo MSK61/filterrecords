@@ -37,6 +37,7 @@ Usage: filterRecords.py [OPTION...] RECORDFILE
 # author:       Mohammed Safwat (MS)
 #
 # environment:  emacs 23.2.1, python 2.6.5, windows xp professional
+#               KWrite 4.6.5, python 2.7.1, Fedora release 15 (Lovelock)
 #
 # notes:        This is a private program.
 #
@@ -96,7 +97,7 @@ def process_command_line(argv):
 
     if extra_args:
         parser.error('program takes exactly one record file; ' +
-                     (('"%s" ignored' % args[mandatory_args:]) if
+                     ('"{}" ignored'.format(args[mandatory_args:]) if
                      extra_args > 0 else "none specified") + '.')
 
     # further process settings
