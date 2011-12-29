@@ -38,6 +38,7 @@ Usage: filterRecords.py [OPTION...] RECORDFILE
 #
 # environment:  emacs 23.2.1, python 2.6.5, windows xp professional
 #               KWrite 4.6.5, python 2.7.1, Fedora release 15 (Lovelock)
+#               KWrite 4.7.4, python 2.7.2, Fedora release 16 (Verne)
 #
 # notes:        This is a private program.
 #
@@ -96,9 +97,10 @@ def process_command_line(argv):
     extra_args = len(args) - mandatory_args
 
     if extra_args:
-        parser.error('program takes exactly one record file; ' +
-                     ('"{}" ignored'.format(args[mandatory_args:]) if
-                     extra_args > 0 else "none specified") + '.')
+        parser.error('program takes exactly one record file; '
+                     '{}.'.format(
+                     '"{}" ignored'.format(args[mandatory_args:]) if
+                     extra_args > 0 else "none specified"))
 
     # further process settings
     # missing ID filter file
@@ -172,9 +174,13 @@ def run(rec_file, settings):
                 # format was provided. Since records may have different
                 # lengths, indices beyond the length of short records
                 # may be simply dropped.
-                rec_layout = filter(
-                    lambda col_num: col_num < len(rec_map[id]), out_layout)
-                debug("custom output layout for record %s: %s", id, rec_layout)
+                if out_layout:
+
+                    rec_layout = filter(
+                        lambda col_num: col_num < len(rec_map[id]), out_layout)
+                    debug("custom output layout for record %s: %s", id,
+                        rec_layout)
+
                 out_rec_file.writerow(map(lambda col_num: rec_map[id][col_num],
                     rec_layout) if out_layout else rec_map[id])
 
