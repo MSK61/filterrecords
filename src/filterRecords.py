@@ -9,7 +9,7 @@ Usage: filterRecords.py [OPTION...] RECORDFILE
 
 ############################################################
 #
-# Copyright 2011 Mohammed El-Afifi
+# Copyright 2011, 2012 Mohammed El-Afifi
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -39,6 +39,7 @@ Usage: filterRecords.py [OPTION...] RECORDFILE
 # environment:  emacs 23.2.1, python 2.6.5, windows xp professional
 #               KWrite 4.6.5, python 2.7.1, Fedora release 15 (Lovelock)
 #               KWrite 4.7.4, python 2.7.2, Fedora release 16 (Verne)
+#               KWrite 4.8.1, python 2.7.2, Fedora release 16 (Verne)
 #
 # notes:        This is a private program.
 #
@@ -171,7 +172,7 @@ def run(rec_file, settings):
             if id in rec_map:
 
                 # Format the output columns as specified if a custom
-                # format was provided. Since records may have different
+                # format was provided.  Since records may have different
                 # lengths, indices beyond the length of short records
                 # may be simply dropped.
                 if out_layout:
