@@ -129,8 +129,8 @@ def run(rec_file, settings):
     """
     # Process the file containing records.
     info("Reading record file %s...", rec_file)
-    rec_map = {}
     rec_rd_permit = "rb"
+    rec_map = {}
     with open(rec_file, rec_rd_permit) as rec_list_file:
 
         rec_reader = csv.reader(rec_list_file)
@@ -152,7 +152,6 @@ def run(rec_file, settings):
     out_file = getattr(settings, _OUT_OPT_VAR)
     wrt_permit = 'w'
     res_file = open(out_file, wrt_permit) if out_file else sys.stdout
-    rec_wr_permit = "wb"
     out_rec_file = csv.writer(res_file)
     with open(filter_file) as filter_list:
 
@@ -175,15 +174,18 @@ def run(rec_file, settings):
                 # format was provided.  Since records may have different
                 # lengths, indices beyond the length of short records
                 # may be simply dropped.
+                fields = rec_map[id]
+
                 if out_layout:
 
                     rec_layout = filter(
                         lambda col_num: col_num < len(rec_map[id]), out_layout)
                     debug("custom output layout for record %s: %s", id,
                         rec_layout)
+                    fields = \
+                        map(lambda col_num: rec_map[id][col_num], rec_layout)
 
-                out_rec_file.writerow(map(lambda col_num: rec_map[id][col_num],
-                    rec_layout) if out_layout else rec_map[id])
+                out_rec_file.writerow(fields)
 
             else:
                 logging.warn("Unknown record %s encountered, skipping...", id)
