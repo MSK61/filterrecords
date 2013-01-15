@@ -40,14 +40,18 @@ Usage: filterRecords.py [OPTION...] RECORDFILE
 #               KWrite 4.6.5, python 2.7.1, Fedora release 15 (Lovelock)
 #               KWrite 4.7.4, python 2.7.2, Fedora release 16 (Verne)
 #               KWrite 4.8.1, python 2.7.2, Fedora release 16 (Verne)
+#               Komodo IDE, version 7.1.2, build 73175, python 2.7.3,
+#               Fedora release 17 (Beefy Miracle)
 #
 # notes:        This is a private program.
 #
 ############################################################
 
 import csv
+from functools import partial
 import logging
 from logging import debug, info
+import operator
 import sys
 import optparse
 # command-line option variables
@@ -160,8 +164,7 @@ def run(rec_file, settings):
         if out_layout:
 
             col_sep = ','
-            out_layout = \
-                map(lambda col_str: int(col_str), out_layout.split(col_sep))
+            out_layout = map(int, out_layout.split(col_sep))
             debug("output layout: %s", out_layout)
 
         for id in filter_list:
@@ -179,11 +182,11 @@ def run(rec_file, settings):
                 if out_layout:
 
                     rec_layout = filter(
-                        lambda col_num: col_num < len(rec_map[id]), out_layout)
+                        partial(operator.gt, len(rec_map[id])), out_layout)
                     debug("custom output layout for record %s: %s", id,
                         rec_layout)
-                    fields = \
-                        map(lambda col_num: rec_map[id][col_num], rec_layout)
+                    fields = map(
+                        partial(operator.getitem, rec_map[id]), rec_layout)
 
                 out_rec_file.writerow(fields)
 
