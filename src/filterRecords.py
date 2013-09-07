@@ -9,7 +9,7 @@ Usage: filterRecords.py [OPTION...] RECORDFILE
 
 ############################################################
 #
-# Copyright 2011, 2012 Mohammed El-Afifi
+# Copyright 2011, 2012, 2013 Mohammed El-Afifi
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -42,16 +42,16 @@ Usage: filterRecords.py [OPTION...] RECORDFILE
 #               KWrite 4.8.1, python 2.7.2, Fedora release 16 (Verne)
 #               Komodo IDE, version 7.1.2, build 73175, python 2.7.3,
 #               Fedora release 17 (Beefy Miracle)
+#               KWrite 4.10.5, python 2.7.2, Fedora release 19
+#               (Schrödinger’s Cat)
 #
 # notes:        This is a private program.
 #
 ############################################################
 
 import csv
-from functools import partial
 import logging
 from logging import debug, info
-import operator
 import sys
 import optparse
 # command-line option variables
@@ -181,12 +181,11 @@ def run(rec_file, settings):
 
                 if out_layout:
 
-                    rec_layout = filter(
-                        partial(operator.gt, len(rec_map[id])), out_layout)
+                    rec_layout = \
+                        filter(lambda col: col < len(rec_map[id]), out_layout)
                     debug("custom output layout for record %s: %s", id,
                         rec_layout)
-                    fields = map(
-                        partial(operator.getitem, rec_map[id]), rec_layout)
+                    fields = map(lambda col: rec_map[id][col], rec_layout)
 
                 out_rec_file.writerow(fields)
 
