@@ -104,7 +104,7 @@ def process_command_line(argv):
     if extra_args:
         parser.error('program takes exactly one record file; '
                      '{}.'.format(
-                     '"{}" ignored'.format(args[mandatory_args:]) if
+                     '"{}" ignored'.format(args[mandatory_args :]) if
                      extra_args > 0 else "none specified"))
 
     # further process settings
