@@ -9,7 +9,7 @@ Usage: filterRecords.py [OPTION...] RECORDFILE
 
 ############################################################
 #
-# Copyright 2011, 2012, 2013, 2014 Mohammed El-Afifi
+# Copyright 2011, 2012, 2013, 2014, 2017 Mohammed El-Afifi
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
