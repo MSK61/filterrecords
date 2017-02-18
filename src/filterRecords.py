@@ -55,14 +55,10 @@ from logging import debug, info
 import sys
 import optparse
 # command-line option variables
-# variable to receive the ID filter file
-_FILTER_OPT_VAR = "filt_file_name"
-# variable to receive the ID column
-_ID_COL_OPT_VAR = "id_column"
-# variable to receive the output layout
-_LAYOUT_OPT_VAR = "layout"
-# variable to receive the output file name
-_OUT_OPT_VAR = "out_file_name"
+_FILTER_OPT_VAR = "filt_file_name"  # variable to receive the ID filter file
+_ID_COL_OPT_VAR = "id_column"  # variable to receive the ID column
+_LAYOUT_OPT_VAR = "layout"  # variable to receive the output layout
+_OUT_OPT_VAR = "out_file_name"  # variable to receive the output file name
 
 def process_command_line(argv):
     """
@@ -108,8 +104,7 @@ def process_command_line(argv):
                      extra_args > 0 else "none specified"))
 
     # further process settings
-    # missing ID filter file
-    if not getattr(settings, _FILTER_OPT_VAR):
+    if not getattr(settings, _FILTER_OPT_VAR):  # missing ID filter file
         parser.error("ID filter file name not specified!")
 
     return settings, args
