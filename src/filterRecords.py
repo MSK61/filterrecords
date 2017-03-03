@@ -44,6 +44,8 @@ Usage: filterRecords.py [OPTION...] RECORDFILE
 #               Fedora release 17 (Beefy Miracle)
 #               KWrite 4.10.5, python 2.7.2, Fedora release 19
 #               (Schrödinger’s Cat)
+#               emacs 25.1.1, python 2.7.13, Fedora release 25 (Twenty
+#               Five)
 #
 # notes:        This is a private program.
 #
