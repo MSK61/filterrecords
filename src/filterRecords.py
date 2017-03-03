@@ -34,7 +34,7 @@ Usage: filterRecords.py [OPTION...] RECORDFILE
 # description:  extracts records from a record file as specified by an
 #               ID filter file
 #
-# author:       Mohammed Safwat (MS)
+# author:       Mohammed El-Afifi (ME)
 #
 # environment:  emacs 23.2.1, python 2.6.5, windows xp professional
 #               KWrite 4.6.5, python 2.7.1, Fedora release 15 (Lovelock)
