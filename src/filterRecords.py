@@ -166,7 +166,7 @@ def run(rec_file, settings):
 
         for id in filter_list:
 
-            id = id.splitlines()[0]
+            id = id.rstrip()
 
             if id in rec_map:
 
